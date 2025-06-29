@@ -1,9 +1,31 @@
 import { JsonPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormsUtils } from '../../../utils/forms-utils';
 
 @Component({
   selector: 'app-register-page',
-  imports: [JsonPipe],
+  imports: [JsonPipe, ReactiveFormsModule],
   templateUrl: './register-page.component.html',
 })
-export class RegisterPageComponent { }
+export class RegisterPageComponent {
+
+  fb = inject(FormBuilder);
+  formsUtils = FormsUtils;
+
+  myForm = this.fb.group({
+    name: ['', [Validators.required, Validators.pattern( this.formsUtils.namePattern )] ],
+    email: ['', [Validators.required, Validators.pattern( this.formsUtils.emailPattern )] ],
+    username: ['', [Validators.required, Validators.minLength(6), Validators.pattern( this.formsUtils.notOnlySpacesPattern )]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    password2: ['', [Validators.required]]
+  });
+
+  onRegister() {
+    this.myForm.markAllAsTouched();
+    console.log(this.myForm.value);
+  }
+
+
+
+}
