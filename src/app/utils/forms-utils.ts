@@ -40,6 +40,9 @@ export class FormsUtils {
 
         return `Error de validación contra pattern`;
 
+        case 'isStrider':
+          return `El usuario no puede ser strider`
+
         case 'passWordNotEqual':
           return `Las contraseñas deben ser iguales`;
 
@@ -99,6 +102,13 @@ export class FormsUtils {
     }
 
     return null;
+  }
+
+  static checkingStriderUser( control: AbstractControl ): ValidationErrors | null {
+
+    const formValue = control.value;
+
+    return formValue === 'strider' ? { isStrider: true } : null;
   }
 
 }

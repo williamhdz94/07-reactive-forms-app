@@ -49,7 +49,7 @@
                            formControlName="username">
                     @if ( formsUtils.isValidField(myForm, 'username') ) {
                       <span class="form-text text-danger">
-                         El username no puede ser Strider
+                         {{ formsUtils.getFieldError(myForm, 'username') }}
                     </span>
                     }
                 </div>
