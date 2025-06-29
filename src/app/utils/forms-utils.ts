@@ -1,4 +1,4 @@
-import { FormArray, FormGroup, ValidationErrors } from "@angular/forms";
+import { AbstractControl, FormArray, FormGroup, ValidationErrors } from "@angular/forms";
 
 export class FormsUtils {
 
@@ -27,7 +27,10 @@ export class FormsUtils {
             return `El correo electrónico es inválido`
           }
 
-        return `Error de validación contra pattern`
+        return `Error de validación contra pattern`;
+
+        case 'passWordNotEqual':
+          return `Las contraseñas deben ser iguales`;
 
         default:
           return `Error de validación no controlado ${ key }`
@@ -61,6 +64,15 @@ export class FormsUtils {
     const errors = formArray.controls[index].errors ?? {};
 
     return this.getTextError(errors);
+  }
+
+  static isFieldOneEqualFieldTwo( field1: string, field2: string ) {
+    return ( formGroup: AbstractControl ) => {
+      const field1Value = formGroup.get(field1)?.value;
+      const field2Value = formGroup.get(field2)?.value;
+
+      return field1Value === field2Value ? null : { passWordNotEqual: true }
+    }
   }
 
 }

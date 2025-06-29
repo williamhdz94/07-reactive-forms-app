@@ -1,3 +1,4 @@
+import { AbstractControl } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -19,6 +20,10 @@ export class RegisterPageComponent {
     username: ['', [Validators.required, Validators.minLength(6), Validators.pattern( this.formsUtils.notOnlySpacesPattern )]],
     password: ['', [Validators.required, Validators.minLength(6)]],
     password2: ['', [Validators.required]]
+  }, {
+    Validators: [
+      this.formsUtils.isFieldOneEqualFieldTwo('password', 'password2')
+    ]
   });
 
   onRegister() {

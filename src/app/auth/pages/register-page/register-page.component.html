@@ -83,7 +83,7 @@
 
                     @if ( formsUtils.isValidField(myForm, 'password2') ) {
                       <span class="form-text text-danger">
-                         Las contraseñas deben de ser iguales
+                         {{ formsUtils.getFieldError(myForm, 'password2') }}
                     </span>
                     }
                 </div>
